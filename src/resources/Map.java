@@ -201,4 +201,9 @@ public class Map {
 				}			
 			}
 	}
+	
+	public void insertEmptyLot(int x, int y)
+	{
+		m[x][y] = 'E';
+	}
 }
