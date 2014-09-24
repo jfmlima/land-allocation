@@ -11,6 +11,7 @@ import java.util.*;
 public class Map {      
 
 	private char[][] m;
+	private ArrayList<Lot> emptyLots = new ArrayList<Lot>();
 	private int dim;
 
 
@@ -62,7 +63,7 @@ public class Map {
 
 			for(int c = 0; c < dim; c++)
 			{
-				System.out.print(m[r][c]);
+				System.out.print(m[c][r]);
 				System.out.printf("|");
 			}
 
@@ -202,8 +203,24 @@ public class Map {
 			}
 	}
 	
-	public void insertEmptyLot(int x, int y)
+	public void insertEmptyLot(Lot eLot)
 	{
-		m[x][y] = 'E';
+		
+		m[eLot.getX()][eLot.getY()] = eLot.getSymbol();
+		
+		eLot.setActive(true);
+	
+		emptyLots.add(eLot);
+	}
+	
+	public Lot getLotByCoordinates(int x, int y)
+	{
+		for(Lot var : emptyLots)
+		{
+			if(var.getX() == x & var.getY() == y)
+				return var;
+		}
+		System.out.println("Error, Lot not found");		
+		return null;
 	}
 }

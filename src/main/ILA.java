@@ -1,4 +1,5 @@
 package main;
+import resources.*;
 import java.util.*;
 
 import resources.Map;
@@ -43,8 +44,12 @@ public class ILA {
 		switch (value) {
 		case 1:	
 			Map map2;
-			map2 = fillMapWithEmptyLots(map1);
+			map2 = fillMapWithEmptyLot(map1);
+			
+			Lot lot1 = new Lot(1,5, 5.4, 'E');
+			map2.insertEmptyLot(lot1);			
 			map2.drawMap();
+			
 			showMenu(map2);
 			break;
 		case 2:
@@ -63,29 +68,29 @@ public class ILA {
 		return 0;
 	}
 
-	public static Map fillMapWithEmptyLots(Map map1)
+	public static Map fillMapWithEmptyLot(Map map1)
 	{
-
 		String c;
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Please insert the location of the empty slot: (example: 1,6)");
+		System.out.println("Please insert the location of the empty slot: (example: 1,6 from 0-9)");
 		c = sc.next();
 		String[] coords = c.split(",");
 
 
 		int x = Integer.parseInt(coords[0]);
 		int y = Integer.parseInt(coords[1]);
-		map1.insertEmptyLot(x, y);
-
-		System.out.println("Empty slot being placed in x: " + x + "and y: " + y);
 		
+		System.out.println("Please insert the price of the empty slot: (in millions)");
+		c = sc.next();
+		
+		double price = Double.parseDouble(c);
+		
+		Lot emptyLot = new Lot(x, y, price, 'E');
+		
+		map1.insertEmptyLot(emptyLot);
 
-
-		/*if(c.equalsIgnoreCase("school"))
-		{
-			map1[]
-		}
-		 */
+		System.out.println("Empty slot being placed in x: " + x + " and y: " + y);
+				
 		return map1;
 
 	}
