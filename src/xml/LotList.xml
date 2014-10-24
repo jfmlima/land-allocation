@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<lotList>
+	<lot id="1">
+		<x>2</x>
+		<y>4</y>
+		<price>23000</price>
+		<leaning>2</leaning>
+		<width>3</width>
+		<height>4</height>
+	</lot>
+	
+	<lot id="2">
+		<x>3</x>
+		<y>5</y>
+		<price>12000</price>
+		<leaning>3</leaning>
+		<width>2</width>
+		<height>2</height>
+	</lot>
+	
+	<lot id="3">
+		<x>5</x>
+		<y>8</y>
+		<price>34000</price>
+		<leaning>5</leaning>
+		<width>3</width>
+		<height>7</height>
+	</lot>
+	
+	<lot id="4">
+		<x>7</x>
+		<y>4</y>
+		<price>5600</price>
+		<leaning>3</leaning>
+		<width>6</width>
+		<height>7</height>
+	</lot>
+	
+	<lot id="5">
+		<x>1</x>
+		<y>5</y>
+		<price>7400</price>
+		<leaning>1</leaning>
+		<width>1</width>
+		<height>1</height>
+	</lot>
+	
+	<lot id="6">
+		<x>6</x>
+		<y>2</y>
+		<price>2000</price>
+		<leaning>3</leaning>
+		<width>2</width>
+		<height>4</height>
+	</lot>
+	
+</lotList>
