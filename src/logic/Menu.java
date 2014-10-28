@@ -36,29 +36,32 @@ public class Menu {
 			case 0:
 			{	
 				XMLParser parser = new XMLParser();
-			    parser.getLanduseList("src/xml/Landuses.xml");
-			    Landuses = parser.getLanduses();
-			    
-			    XMLParser pp = new XMLParser();
-			    pp.getLotList("src/xml/LotList.xml");			    
-			    lotList = pp.getLots();
-			    			    
-			    ArrayList<String> solutions = new ArrayList<String>();
-			    AStar as = new AStar(solutions, Landuses, lotList);			    
-			    
-			    as.applyAlgorithm();
-			    
-			    ArrayList<Landuse> toDraw = as.getAssignments();
-			    for(int v = 0; v < toDraw.size(); v++)
-			    {
-			    	map.insertLanduse(toDraw.get(v));
-			    }
-			    System.out.println();
-			    map.drawMap();
-			    
-			    break;
-			    
+				parser.getLanduseList("src/xml/Landuses.xml");
+				//map.setLanduses(parser.getLanduses());
+				Landuses = parser.getLanduses();
+
+				XMLParser pp = new XMLParser();
+				pp.getLotList("src/xml/LotList.xml");			    
+				map.setEmptyLots(pp.getLots());
+				map.setUnassignedLanduses(Landuses);
+				map.drawMap();
+				   
+				ArrayList<String> solutions = new ArrayList<String>();
+
+				AStar as = new AStar(solutions, map);			    
+
+				as.apply();
 				
+				Map sol = as.solution;
+				if(sol!=null)
+				sol.drawMap();
+				
+				System.out.println();
+				//map.drawMap();
+
+				break;
+
+
 			}
 
 			case 1:
@@ -290,8 +293,8 @@ public class Menu {
 			{
 				ArrayList<String> solutions = new ArrayList<String>();
 
-				AStar alg = new AStar(solutions, Landuses, lotList);
-				alg.applyAlgorithm();
+				//AStar alg = new AStar(solutions, Landuses, map);
+				//alg.applyAlgorithm();
 			}
 
 

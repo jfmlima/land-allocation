@@ -22,6 +22,7 @@ public class Lot {
 	private boolean active;
 	private boolean used;
 	//private ArrayList<Restriction> restrictions = new ArrayList<Restriction>();
+	public Landuse land;
 
 
 

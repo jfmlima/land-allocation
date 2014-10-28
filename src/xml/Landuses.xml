@@ -5,7 +5,7 @@
 		<restrictions>
 			<restriction>
 				<req>MUST HAVE</req>
-				<ari>MORE THAN</ari>
+				<ari>MORE OR THE SAME AS</ari>
 				<type>leaning</type>
 				<val>3</val>
 			</restriction>
@@ -65,4 +65,41 @@
 			</restriction>
 		</restrictions>
 	</landuse>
+	
+	<landuse id="6">
+		<name>Movie Theater</name>
+		<restrictions>
+			<restriction>
+				<req>MUST HAVE</req>
+				<ari>MORE OR THE SAME AS</ari>
+				<type>width</type>
+				<val>1</val>
+			</restriction>
+		</restrictions>
+		</landuse>
+		
+		<landuse id="7">
+		<name>City Hall</name>
+		<restrictions>
+			<restriction>
+				<req>MUST HAVE</req>
+				<ari>MORE OR THE SAME AS</ari>
+				<type>width</type>
+				<val>10</val>
+			</restriction>
+		</restrictions>
+	</landuse>
+	
+	<landuse id="8">
+		<name>Bank</name>
+		<restrictions>
+			<restriction>
+				<req>MUST HAVE</req>
+				<ari>LESS OR THE SAME AS</ari>
+				<type>leaning</type>
+				<val>2</val>
+			</restriction>
+		</restrictions>
+	</landuse>
+	
 </landuseList>
