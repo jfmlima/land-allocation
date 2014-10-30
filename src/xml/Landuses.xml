@@ -59,7 +59,7 @@
 		<restrictions>
 			<restriction>
 				<req>MUST HAVE</req>
-				<ari>MORE THAN</ari>
+				<ari>LESS THAN</ari>
 				<type>price</type>
 				<val>10000</val>
 			</restriction>
@@ -85,7 +85,7 @@
 				<req>MUST HAVE</req>
 				<ari>MORE OR THE SAME AS</ari>
 				<type>width</type>
-				<val>10</val>
+				<val>1</val>
 			</restriction>
 		</restrictions>
 	</landuse>
@@ -98,6 +98,60 @@
 				<ari>LESS OR THE SAME AS</ari>
 				<type>leaning</type>
 				<val>2</val>
+			</restriction>
+		</restrictions>
+	</landuse>
+	
+	<landuse id="9">
+		<name>Faculty of Engineering</name>
+		<restrictions>
+			<restriction>
+				<req>MUST HAVE</req>
+				<ari>LESS OR THE SAME AS</ari>
+				<type>leaning</type>
+				<val>1</val>
+			</restriction>
+			<restriction>
+				<req>MUST HAVE</req>
+				<ari>LESS OR THE SAME AS</ari>
+				<type>price</type>
+				<val>30000</val>
+			</restriction>
+			<restriction>
+				<req>MUST HAVE</req>
+				<ari>MORE OR THE SAME AS</ari>
+				<type>width</type>
+				<val>6</val>
+			</restriction>
+		</restrictions>
+	</landuse>
+	
+	<landuse id="10">
+		<name>Shopping Mall</name>
+		<restrictions>
+			<restriction>
+				<req>MUST HAVE</req>
+				<ari>LESS OR THE SAME AS</ari>
+				<type>leaning</type>
+				<val>1</val>
+			</restriction>
+			<restriction>
+				<req>MUST HAVE</req>
+				<ari>LESS OR THE SAME AS</ari>
+				<type>price</type>
+				<val>30000</val>
+			</restriction>
+			<restriction>
+				<req>MUST HAVE</req>
+				<ari>MORE OR THE SAME AS</ari>
+				<type>width</type>
+				<val>6</val>
+			</restriction>
+			<restriction>
+				<req>MUST HAVE</req>
+				<ari>MORE OR THE SAME AS</ari>
+				<type>heigth</type>
+				<val>6</val>
 			</restriction>
 		</restrictions>
 	</landuse>

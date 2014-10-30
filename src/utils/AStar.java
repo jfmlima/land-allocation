@@ -2,6 +2,7 @@ package utils;
 
 import logic.Map;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -20,6 +21,7 @@ public class AStar {
 	ArrayList<Map> mapStates = new ArrayList<Map>();
 	private ArrayList<Map> visitedMaps = new ArrayList<Map>();
 	public Map solution;
+	public int count;
 
 	double totalPrice, fn;
 
@@ -62,30 +64,34 @@ public class AStar {
 		this.unassignedLots = unassignedLots;
 	}
 
-	public double updateHeuristicValue(List<Landuse> landuses, List<Lot> unassignedLots) {
+	public double updateHeuristicValue(List<Landuse> landuses, ArrayList<Lot> unassignedLots) throws InterruptedException {
 
 		double hn = 0;
-		ArrayList<Double> orderedPrices = new ArrayList<Double>();
-
-		for(int i = 0; i < unassignedLots.size(); i++) {
-			orderedPrices.add(unassignedLots.get(i).getPrice());
-		}
-
-		Collections.sort(orderedPrices);
-
+		double al = 0;
+	
+		ArrayList<Lot> uLots = new ArrayList<Lot>();
+		uLots = unassignedLots;
+		
+		lotComparator comp = new lotComparator();
+		Collections.sort(uLots, comp);
+		
 		for(int a = 0; a < landuses.size(); a++) { 
-			hn += orderedPrices.get(a);
+			hn += uLots.get(a).getPrice();
 		}
+		
+		for(int y = 0; y < landuses.size(); y++)
+		al += landuses.get(y).getRestrictions().size();
 
-
+		double al1 = Math.pow(al, 2);
+		System.out.println("HN: " + hn);
 		return hn;
 	}
 
-	public void applyAlgorithm()
+	public void applyAlgorithm() throws InterruptedException
 	{
-		List<Landuse> landuseList = new ArrayList<Landuse>();
-		List<Lot> openLotList = new ArrayList<Lot>(); //already crescent ordered
-		List<Lot> closedLotList = new ArrayList<Lot>();
+		ArrayList<Landuse> landuseList = new ArrayList<Landuse>();
+		ArrayList<Lot> openLotList = new ArrayList<Lot>(); //already crescent ordered
+		ArrayList<Lot> closedLotList = new ArrayList<Lot>();
 
 		landuseList = landuses;		
 		openLotList = unassignedLots;
@@ -120,7 +126,7 @@ public class AStar {
 
 					Landuse landu = landuseList.get(c);
 
-					if(currentLot.applyLanduseRestrictions(landu))
+					//					if(currentLot.applyLanduseRestrictions(landu))
 					{
 						solutions.add(landu.getType() + " was allocated in the lot with X = " + currentLot.getX() + " and Y = " + currentLot.getY());
 						landu.setX(currentLot.getX());
@@ -172,16 +178,17 @@ public class AStar {
 		System.out.println("Total price: " + totalPrice);
 	}
 
-	public void apply()
+	public void apply() throws CloneNotSupportedException, InterruptedException 
 	{
 		System.out.println("começou");
 		System.out.println(mapStates.size());
-		System.out.println("States: ");
-		for(int i = 0; i < mapStates.size(); i++)
-		{
-			mapStates.get(i).drawMap();
-			System.out.println();
-		}
+
+		System.out.println("States: " + count);
+		//		for(int i = 0; i < mapStates.size(); i++)
+		//		{
+		//			mapStates.get(i).drawMap();
+		//			System.out.println();
+		//		}
 
 		if(mapStates.size() == 0)
 		{
@@ -189,57 +196,99 @@ public class AStar {
 			solution = null;
 			return;
 		}
-
-		Map map = mapStates.get(0);
+		System.out.println("income opt: ");
+		System.out.println(mapStates.get(0).getAssignedLanduses().size());
+		mapStates.get(0).drawMap();
+		Thread.sleep(1000);
+		Map map = Map.newMap(mapStates.get(0));
 		mapStates.remove(map);
+		System.out.println(map.getUnassignedLanduses().size());
 
 		if(map.getUnassignedLanduses().isEmpty()){
 			solution = map;
+
+			for(int g = 0; g < solution.getAssignedLots().size(); g++)
+			{
+				solutions.add(solution.getAssignedLots().get(g).land.getType() + " was allocated in the lot with X = " + solution.getAssignedLots().get(g).land.getX() + " and Y = " + solution.getAssignedLots().get(g).land.getY());
+			}
 			System.out.println("Allocation complete. Allocation (Terrain-Building):");
 			System.out.println("Solution: " + solutions );
 			System.out.println("Total price: " + map.getFN());
 			return;
 		}
+		Map map1;
 
 		for(int i = 0; i < map.getEmptyLots().size(); i++)
 		{
-			Map map2 = map;
+			System.out.println("lots for");
+			System.out.println("Lot: " + i);
+			map.getEmptyLots().get(i).print();
+			ArrayList<Landuse> uLands = map.getUnassignedLanduses();
+			landuseComparator comp = new landuseComparator();
+			Collections.sort(uLands, comp);
 			
 			for(int u = 0; u < map.getUnassignedLanduses().size(); u++)
 			{	
-				if(!visitedMaps.contains(map))
+				System.out.println("landuses for");
+				System.out.println("Landuse: " +uLands.get(u).getType());
+				if(!visitedMaps.contains(map) )
 				{
-					System.out.println("entrou");
-					if(map.getEmptyLots().get(i).applyLanduseRestrictions(map.getUnassignedLanduses().get(u)))
+					System.out.println("map that came from apply recurse: ");
+					map.drawMap();
+					if(map.applyLanduseRestrictions(uLands.get(u), map.getEmptyLots().get(i)))
 					{
+						map1 = Map.newMap(map);
+						System.out.println("Clone: ");
+						System.out.println(map1.getEmptyLots().size());
+						map1.drawMap();
 
-
-						Map map1 = map2;
 						Lot lot2 = map1.getEmptyLots().get(i);
 						Landuse land2 = map1.getUnassignedLanduses().get(u);
-						solutions.add(land2.getType() + " was allocated in the lot with X = " + lot2.getX() + " and Y = " + lot2.getY());
+
+
 						map1.insertLanduseToLot(land2, lot2);
+//						if(i == 0)
+//						{}
+//						else if(i == 1)
+//						{}
+//						else
+//							i--;
+//
+//						if(u == 0)
+//						{}
+//						else if(u == 1)
+//						{}
+//						else u--;
 						map1.setAccumCost(map1.getAccumCost()+ lot2.getPrice());
 
-
-						if(i == 0)
-						{}
-						else
-							i--;
-
-						if(u==0)
-						{}
-						else
-							u--;
 
 						fn = map1.getAccumCost() + this.updateHeuristicValue(map1.getUnassignedLanduses(), map1.getEmptyLots());
 						map1.setFN(fn);
 
 
-
+						System.out.println(map1.getUnassignedLanduses().size());
+						System.out.println(map1.getAccumCost());
+						count++;
+						System.out.println("Entrada em states:");
+						map1.drawMap();
+						for(int t = 0; t < map1.getAssignedLanduses().size(); t++)
+						{
+							System.out.println(map1.getAssignedLanduses().get(t).getType());
+						}
+						Thread.sleep(100);
 						mapStates.add(map1);
+						//map1.removeLanduseFromLot(land2, lot2);
 
 
+
+					}
+					else
+					{
+						System.out.println(map.getUnassignedLanduses().get(u).getType());
+						System.out.println("Restrições activas: ");
+						map.getUnassignedLanduses().get(u).getRestrictions().get(0).print();
+						System.out.println("Para Lote: ");
+						map.getEmptyLots().get(i).print();
 					}
 				}
 
@@ -256,7 +305,9 @@ public class AStar {
 		mapComparator comp = new mapComparator();
 
 		Collections.sort(mapStates, comp);
-
+		System.out.println("Optimal state: ");
+		mapStates.get(0).drawMap();
+		System.out.println("apply" );
 		apply();
 
 	}
@@ -318,34 +369,34 @@ public class AStar {
 		@Override
 		public int compare(Map o1, Map o2) {
 			// TODO Auto-generated method stub
-			int valid = -2;
-
-			for(int i = 0; i< o1.getUnassignedLanduses().size(); i++)
-			{
-				for(int u = 0; u < o2.getUnassignedLanduses().size(); u++)
-				{
-					if(o1.getFN() < o2.getFN() && o1.getUnassignedLanduses().get(i).getRestrictions().size() > o2.getUnassignedLanduses().get(u).getRestrictions().size())
-					{
-						valid = 1;
-					}
-					else if(o1.getFN() < o2.getFN() && o1.getUnassignedLanduses().get(i).getRestrictions().size() == o2.getUnassignedLanduses().get(u).getRestrictions().size())
-					{
-						valid = 0;
-					}
-					else
-						valid = -1;
-				}
-
-			}
-			//			if(o1.getFN() < o2.getFN() && o1.getUnassignedLanduses().)
+			//			int valid = -2;
+			//
+			//			for(int i = 0; i< o1.getUnassignedLanduses().size(); i++)
 			//			{
-			//				return 1;
+			//				for(int u = 0; u < o2.getUnassignedLanduses().size(); u++)
+			//				{
+			//					if(o1.getFN() < o2.getFN() && o1.getUnassignedLanduses().get(i).getRestrictions().size() < o2.getUnassignedLanduses().get(u).getRestrictions().size())
+			//					{
+			//						valid = 1;
+			//					}
+			//					else if(o1.getFN() == o2.getFN() && o1.getUnassignedLanduses().get(i).getRestrictions().size() == o2.getUnassignedLanduses().get(u).getRestrictions().size())
+			//					{
+			//						valid = 0;
+			//					}
+			//					else
+			//						valid = -1;
+			//				}
+			//
 			//			}
-			//			else if(o1.getFN() == o2.getFN())
-			//				return 0;
-			//			else
-			//				return -1;
-			return valid;
+			if(o1.getFN() < o2.getFN())
+			{
+				return 1;
+			}
+			else if(o1.getFN() == o2.getFN())
+				return 0;
+			else
+				return -1;
+			//return valid;
 		}
 	}
 

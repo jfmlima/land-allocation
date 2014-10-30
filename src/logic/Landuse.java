@@ -3,14 +3,14 @@ import utils.Restriction;
 
 import java.util.ArrayList;
 
-public class Landuse {
+public class Landuse implements Cloneable {
 
 	private int x;
 	private int y;
 	private String type;
 	private boolean isActive;
 	private ArrayList<Restriction> restrictions = new ArrayList <Restriction>();
-
+	private int priority;
 
 	public Landuse(String type) {
 		super();
@@ -21,6 +21,7 @@ public class Landuse {
 		super();
 		this.type = type;
 		this.restrictions =restrictions;
+		this.setPriority(this.getRestrictions().size());
 	}
 
 	public ArrayList<Restriction> getRestrictions() {
@@ -55,6 +56,14 @@ public class Landuse {
 		this.type = type;
 	}
 
+	public int getPriority() {
+		return priority;
+	}
+
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+
 	public boolean isActive() {
 		return isActive;
 	}
@@ -79,6 +88,12 @@ public class Landuse {
 			
 		}
 
+	}
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException 
+	{
+		return super.clone();
 	}
 
 }

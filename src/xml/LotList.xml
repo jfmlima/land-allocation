@@ -57,10 +57,10 @@
 	<lot id="7">
 		<x>6</x>
 		<y>3</y>
-		<price>5600</price>
+		<price>2500</price>
 		<leaning>3</leaning>
-		<width>6</width>
-		<height>7</height>
+		<width>8</width>
+		<height>3</height>
 	</lot>
 	
 	<lot id="8">

@@ -14,7 +14,7 @@ public class Menu {
 	private static ArrayList<Lot> lotList = new ArrayList<Lot>();
 	private static ArrayList<Landuse> Landuses = new ArrayList<Landuse>();
 
-	public static void main(String[] args){
+	public static void main(String[] args) throws CloneNotSupportedException, InterruptedException{
 
 		map = new Map(13);
 		while(true)
@@ -55,6 +55,7 @@ public class Menu {
 				Map sol = as.solution;
 				if(sol!=null)
 				sol.drawMap();
+				System.out.println(as.count);
 				
 				System.out.println();
 				//map.drawMap();

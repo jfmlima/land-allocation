@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<landuseList>
+	<landuse id="1">
+		<name>School</name>
+		<restrictions>
+			<restriction>
+				<req>MUST HAVE</req>
+				<ari>MORE OR THE SAME AS</ari>
+				<type>leaning</type>
+				<val>3</val>
+			</restriction>
+		</restrictions>
+	</landuse>
+	
+	<landuse id="2">
+		<name>Police Station</name>
+		<restrictions>
+			<restriction>
+				<req>MUST NOT HAVE</req>
+				<ari>LESS THAN</ari>
+				<type>price</type>
+				<val>8000</val>
+			</restriction>
+		</restrictions>
+	</landuse>
+	
+	<landuse id="3">
+		<name>Graveyard</name>
+		<restrictions>
+			<restriction>
+				<req>MUST HAVE</req>
+				<ari>MORE THAN</ari>
+				<type>width</type>
+				<val>2</val>
+			</restriction>
+		</restrictions>
+	</landuse>
+		
+</landuseList>

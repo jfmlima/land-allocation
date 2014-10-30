@@ -1,5 +1,6 @@
 package logic;
 import utils.Restriction;
+
 import java.util.ArrayList;
 
 /**
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  */
 
 
-public class Lot {
+public class Lot implements Cloneable {
 
 	private int x;
 	private int y;
@@ -127,7 +128,7 @@ public class Lot {
 		this.restrictions= restrictions;
 	}*/
 
-	public boolean applyLanduseRestrictions(Landuse land)
+	public boolean applyLanduseRestrictions(Landuse land, Lot lot)
 	{
 		ArrayList<Restriction> restrictions = land.getRestrictions();
 
@@ -748,6 +749,12 @@ public class Lot {
 		System.out.println("Width: " + this.width);
 		System.out.println("Height: " + this.height);
 		System.out.println();
+	}
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException 
+	{
+		return super.clone();
 	}
 
 }
