@@ -25,7 +25,7 @@ public class AStar {
 
 	double totalPrice, fn;
 
-	public AStar(ArrayList<String> solutions, Map initialMap)
+	public AStar(Map initialMap)
 	{
 		this.solutions = solutions;
 		this.mapStates.add(initialMap);

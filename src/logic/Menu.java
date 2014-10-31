@@ -48,7 +48,7 @@ public class Menu {
 				   
 				ArrayList<String> solutions = new ArrayList<String>();
 
-				AStar as = new AStar(solutions, map);			    
+				AStar as = new AStar(map);			    
 
 				as.apply();
 				
@@ -292,10 +292,13 @@ public class Menu {
 
 			case 3:
 			{
-				ArrayList<String> solutions = new ArrayList<String>();
-
-				//AStar alg = new AStar(solutions, Landuses, map);
-				//alg.applyAlgorithm();
+				map.setUnassignedLanduses(Landuses);
+				map.setEmptyLots(lotList);
+				
+				AStar alg = new AStar(map);
+				alg.apply();
+				
+				alg.solution.drawMap();
 			}
 
 
