@@ -57,7 +57,7 @@ public class Map implements Cloneable, Serializable {
 
 			firstLetter = String.valueOf(assignedLanduses.get(u).getType().charAt(0));
 			se = String.valueOf(assignedLanduses.get(u).getType().charAt(1));
-			System.out.println(firstLetter+se);
+
 
 			if(this.assignedLanduses.contains(this.assignedLanduses.get(u)))
 			{
@@ -65,18 +65,11 @@ public class Map implements Cloneable, Serializable {
 				this.assignedLanduses.get(u).setY(assignedLanduses.get(u).getY());
 				this.m[assignedLanduses.get(u).getX()][assignedLanduses.get(u).getY()] = firstLetter+se ;
 			}
-			System.out.println(assignedLanduses.get(u).getType());
+			
 
 		}
-
-		System.out.println("deu");
-		System.out.println(this.emptyLots.size());
-		System.out.println(this.assignedLots.size());
-		
-
-
-
 	}
+	
 	public Map(int dim)
 	{
 		this.dim = dim;

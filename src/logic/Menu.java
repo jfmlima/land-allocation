@@ -45,8 +45,6 @@ public class Menu {
 				map.setEmptyLots(pp.getLots());
 				map.setUnassignedLanduses(Landuses);
 				map.drawMap();
-				   
-				ArrayList<String> solutions = new ArrayList<String>();
 
 				AStar as = new AStar(map);			    
 
@@ -55,14 +53,11 @@ public class Menu {
 				Map sol = as.solution;
 				if(sol!=null)
 				sol.drawMap();
-				System.out.println(as.count);
 				
 				System.out.println();
 				//map.drawMap();
 
 				break;
-
-
 			}
 
 			case 1:
